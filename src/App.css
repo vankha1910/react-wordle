@@ -1,0 +1,104 @@
+:root {
+  --text-color: #f8f8f8;
+  --bg-color: #121213;
+  --border-color: #3a3a3c;
+
+  --gray-24: #818384;
+  --gray-25: #565758;
+  --bg-keyboard: #818384;
+  --bg-cell-correct: #538d4e;
+  --bg-cell-present: #b59f3b;
+  --bg-cell-absent: #3a3a3c;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.empty {
+  border: 2px solid var(--border-color);
+  scale: 1 1;
+  transition: scale 0.2s linear;
+}
+.custom-key {
+  background: var(--bg-keyboard);
+}
+
+.filled {
+  border: 2px solid var(--gray-25);
+}
+
+.absent {
+  background-color: var(--bg-cell-absent);
+}
+.present {
+  background-color: var(--bg-cell-present);
+  border: none;
+}
+.correct {
+  background-color: var(--bg-cell-correct);
+  border: none;
+}
+
+.animation-jiggle {
+  animation: 0.08s ease-in-out 0s 6 alternate none running jiggle;
+}
+
+.animation-bloom {
+  animation: 0.1s linear 1 bloom;
+  transition: all 0.3s ease-in;
+}
+
+.animation-scale-0 {
+  scale: 1 0;
+}
+
+.animation-scale-1 {
+  scale: 1 1;
+}
+
+.reveal-row {
+  transition: scale 0.2s linear;
+}
+.flip-in {
+  animation: 0.4s ease-in FlipIn;
+}
+
+.flip-out {
+  animation: 0.25s ease-in FlipOut;
+}
+@keyframes FlipIn {
+  0% {
+    transform: rotateX(0);
+  }
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+@keyframes FlipOut {
+  0% {
+    transform: rotateX(-90deg);
+  }
+  100% {
+    transform: rotateX(0);
+  }
+}
+
+@keyframes bloom {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes jiggle {
+  from {
+    translate: 0px;
+  }
+  to {
+    translate: -5px;
+  }
+}
