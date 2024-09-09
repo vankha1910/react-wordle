@@ -2,7 +2,6 @@ import { CellType } from '../../types/game.type';
 
 const Cell = ({
   cell,
-  showAnimation,
   className,
   style,
 }: {

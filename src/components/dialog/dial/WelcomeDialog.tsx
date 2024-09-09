@@ -1,4 +1,3 @@
-import React from 'react';
 import RevealRow from '../../grid/RevealRow';
 import { Row } from '../../../types/game.type';
 

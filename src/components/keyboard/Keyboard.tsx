@@ -1,4 +1,3 @@
-import React from 'react';
 import { KEYBOARD_LAYOUT } from '../../utils/constants';
 import Key from './Key';
 import { useSelector } from 'react-redux';

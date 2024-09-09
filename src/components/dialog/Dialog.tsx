@@ -1,11 +1,11 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useOverlay } from './context';
 
 const Dialog = ({ target }: { target: ReactNode }) => {
   const [visible, setVisible] = useState(false);
   const { closeDialog } = useOverlay();
-  const onClose = visible ? undefined : closeDialog;
-  const onClosing = () => setVisible(false);
+  // const onClose = visible ? undefined : closeDialog;
+  // const onClosing = () => setVisible(false);
   useEffect(() => {
     if (target) {
       setTimeout(() => setVisible(true), 100);

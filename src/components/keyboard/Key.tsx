@@ -1,4 +1,3 @@
-import React from 'react';
 import { CellType } from '../../types/game.type';
 import { specialKeys } from '../../utils/constants';
 import useGameSlide from '../../features/game/useGameSlide';
