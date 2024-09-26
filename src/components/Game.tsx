@@ -9,6 +9,7 @@ import { RootState } from '../app/store';
 import { useDialog } from './dialog/useDialog';
 
 const Game = () => {
+  const { showWelcomeDialog } = useDialog();
   const { handleAddChar, handleRemoveChar, handleCheckRow, clearErrorMessage } =
     useGameSlide();
   const { errorMessage } = useSelector((state: RootState) => state.game);
@@ -40,6 +41,10 @@ const Game = () => {
       return () => clearTimeout(timer);
     }
   }, [errorMessage, clearErrorMessage]);
+
+  useEffect(() => {
+    showWelcomeDialog();
+  }, []);
   return (
     <>
       <Header></Header>
@@ -47,6 +52,9 @@ const Game = () => {
         <Grid></Grid>
         <Keyboard></Keyboard>
       </main>
+      <footer className='text-center mt-4 text-sm'>
+        Created by Kha &copy; 2024
+      </footer>
     </>
   );
 };

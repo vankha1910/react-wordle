@@ -1,5 +1,5 @@
 import { GameState } from '../types/game.type';
-import { VALID_WORDS } from './validWords';
+import { GOOD_WORDS } from './validWords';
 const KEY_STORAGE = 'react-wordle';
 
 export function isValidChar(char: string) {
@@ -7,7 +7,7 @@ export function isValidChar(char: string) {
 }
 
 export function isValidWord(word: string) {
-  return VALID_WORDS.includes(word);
+  return GOOD_WORDS.includes(word);
 }
 
 export function saveData<T>(data: T) {
@@ -26,5 +26,5 @@ export function getGameData() {
 }
 
 export function getRandomWord() {
-  return VALID_WORDS[Math.floor(Math.random() * VALID_WORDS.length)];
+  return GOOD_WORDS[Math.floor(Math.random() * GOOD_WORDS.length)];
 }

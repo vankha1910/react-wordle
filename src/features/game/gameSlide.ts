@@ -1,19 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { GameState } from '../../types/game.type';
 import { getGameData, getRandomWord, isValidWord, saveData } from '../../utils';
+const randomWord = getRandomWord();
 const initialState: GameState = {
   // prettier-ignore
-  rows: [
-    [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
-    [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
-    [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
-    [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
-    [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
-    [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
-  ],
+  // rows: [
+  //   [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
+  //   [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
+  //   [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
+  //   [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
+  //   [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
+  //   [{ char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }, { char: '', status: 'empty' }],
+  // ],
+  rows: Array.from({ length: 6 }, () => [
+    { char: randomWord[0], status: 'correct' },
+    // { char: '', status: 'empty' },
+    { char: '', status: 'empty' },
+    { char: '', status: 'empty' },
+    { char: '', status: 'empty' },
+    { char: '', status: 'empty' },
+  ]),
   rowStates: Array.from({ length: 6 }, () => 'empty'),
   currentRowIndex: 0,
-  secretWord: getRandomWord(),
+  secretWord: randomWord,
   gameStatus: 'pending',
   gameStats: {
     currentStreak: 0,
@@ -58,6 +67,7 @@ const gameSlide = createSlice({
       currentRow[actualIndex].status = 'empty';
     },
     checkRow: (state) => {
+      if (state.gameStatus === 'won' || state.gameStatus === 'lost') return;
       const currentRow = state.rows[state.currentRowIndex];
       const secretWordArray = state.secretWord.split('');
       const usedChars = Array(secretWordArray.length).fill(false);
@@ -124,8 +134,11 @@ const gameSlide = createSlice({
       state.rowStates = Array.from({ length: 6 }, () => 'empty');
       state.gameStatus = 'inProgress';
       state.secretWord = getRandomWord();
+      // console.log(state.secretWord);
+
       state.rows = Array.from({ length: 6 }, () => [
-        { char: '', status: 'empty' },
+        { char: state.secretWord[0], status: 'correct' },
+        // { char: '', status: 'empty' },
         { char: '', status: 'empty' },
         { char: '', status: 'empty' },
         { char: '', status: 'empty' },
@@ -138,15 +151,17 @@ const gameSlide = createSlice({
       state.currentRowIndex = 0;
       state.rowStates = Array.from({ length: 6 }, () => 'empty');
       state.gameStatus = 'inProgress';
+      state.secretWord = getRandomWord();
+      console.log(state.secretWord);
       state.rows = Array.from({ length: 6 }, () => [
-        { char: '', status: 'empty' },
+        { char: state.secretWord[0], status: 'correct' },
         { char: '', status: 'empty' },
         { char: '', status: 'empty' },
         { char: '', status: 'empty' },
         { char: '', status: 'empty' },
       ]);
       state.gameStats.currentStreak = 0;
-      state.secretWord = getRandomWord();
+
       saveData(state);
     },
     clearErrorMessage: (state) => {
