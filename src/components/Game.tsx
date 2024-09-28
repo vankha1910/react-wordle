@@ -10,9 +10,16 @@ import { useDialog } from './dialog/useDialog';
 
 const Game = () => {
   const { showWelcomeDialog } = useDialog();
-  const { handleAddChar, handleRemoveChar, handleCheckRow, clearErrorMessage } =
-    useGameSlide();
-  const { errorMessage } = useSelector((state: RootState) => state.game);
+  const {
+    handleAddChar,
+    handleRemoveChar,
+    handleCheckRow,
+    clearErrorMessage,
+    handleHideWelcomeDialog,
+  } = useGameSlide();
+  const { errorMessage, gameSettings } = useSelector(
+    (state: RootState) => state.game
+  );
   const { showMessage } = useDialog();
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -43,8 +50,19 @@ const Game = () => {
   }, [errorMessage, clearErrorMessage]);
 
   useEffect(() => {
-    showWelcomeDialog();
+    if (gameSettings?.showWelcomeScreen) {
+      showWelcomeDialog();
+      handleHideWelcomeDialog();
+    }
   }, []);
+
+  useEffect(() => {
+    if (gameSettings.darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }, [gameSettings.darkMode]);
   return (
     <>
       <Header></Header>

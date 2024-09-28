@@ -24,7 +24,7 @@ const OverlayProvider = ({ children }: { children: ReactNode }) => {
         {message && (
           <aside className='absolute left-0 top-10 right-0 flex justify-center z-10 '>
             <p
-              className='bg-[#444] p-4 rounded shadow-sm shadow-slate-50'
+              className='bg-[#444] text-white p-4 rounded shadow-sm shadow-slate-50'
               aria-live='polite'
             >
               {message}

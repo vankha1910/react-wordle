@@ -1,11 +1,14 @@
 import { FaRegQuestionCircle, FaChartLine } from 'react-icons/fa';
+import { IoSettingsSharp } from 'react-icons/io5';
+
 import { useDialog } from './dialog/useDialog';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 
 const Header = () => {
-  const { showWelcomeDialog, showResultDialog } = useDialog();
+  const { showWelcomeDialog, showResultDialog, showSettingDialog } =
+    useDialog();
   const { gameStatus } = useSelector((state: RootState) => state.game);
   useEffect(() => {
     if (gameStatus === 'won' || gameStatus === 'lost') {
@@ -25,6 +28,9 @@ const Header = () => {
         </button>
         <button onClick={showResultDialog}>
           <FaChartLine className='' />
+        </button>
+        <button onClick={showSettingDialog}>
+          <IoSettingsSharp className='' />
         </button>
       </div>
     </nav>

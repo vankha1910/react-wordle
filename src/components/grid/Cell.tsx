@@ -6,22 +6,21 @@ const Cell = ({
   style,
 }: {
   cell: CellType;
-  showAnimation?: boolean;
   className?: string;
   style?: React.CSSProperties;
 }) => {
   const statusClass = {
     empty: 'empty',
-    correct: 'correct',
-    present: 'present',
-    absent: 'absent',
+    correct: 'correct text-t-color',
+    present: 'present text-t-color',
+    absent: 'absent text-t-color',
     filled: 'filled animation',
   };
   return (
     <div
       className={`${statusClass[cell.status]} ${
         className ? className : ''
-      } custom-cell w-12 h-12 flex items-center justify-center text-xl font-bold uppercase transition-transform duration-200`}
+      }  custom-cell w-12 h-12 flex items-center justify-center text-xl font-bold uppercase transition-transform duration-200`}
       style={style}
     >
       {cell.char}

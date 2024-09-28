@@ -8,7 +8,7 @@ const ResultDialog = () => {
   const { gameStats, gameStatus, secretWord, currentRowIndex } = useSelector(
     (state: RootState) => state.game
   );
-  const { handlePlayNext, handlePlayAgain } = useGameSlide();
+  const { handlePlayNext, handlePlayAgain, handleResetGame } = useGameSlide();
 
   const playNext = () => {
     if (gameStatus !== 'won') return;
@@ -18,8 +18,15 @@ const ResultDialog = () => {
     }, 200);
   };
   const playAgain = () => {
-    if (gameStatus !== 'lost') return;
+    // if (gameStatus !== 'lost') return;
     handlePlayAgain();
+    setTimeout(() => {
+      closeDialog();
+    }, 200);
+  };
+
+  const resetGame = () => {
+    handleResetGame();
     setTimeout(() => {
       closeDialog();
     }, 200);
@@ -49,7 +56,8 @@ const ResultDialog = () => {
       <h3 className='text-base font-semibold uppercase p-2'>Statistics</h3>
       <ul className='flex gap-4 '>
         <li className='flex flex-col text-center'>
-          Played <p className='text-lg mt-1 font-bold'>{gameStats.played}</p>
+          Played{' '}
+          <p className='text-lg mt-1 font-bold mt-auto'>{gameStats.played}</p>
         </li>
         <li className='flex flex-col text-center'>
           Win %{' '}
@@ -66,23 +74,34 @@ const ResultDialog = () => {
           <p className='text-lg mt-1 font-bold'>{gameStats.maxStreak}</p>
         </li>
       </ul>
+
       <hr className='self-stretch w-full bg-[#555] h-[1px] mt-4 mb-2' />
-      {gameStatus === 'won' && (
+
+      <div className='flex gap-4'>
         <button
-          className='bg-primary-green text-white p-2 rounded-lg'
-          onClick={playNext}
+          className='bg-primary-orange text-white p-2 rounded-lg'
+          onClick={resetGame}
         >
-          Play Next
+          Reset game
         </button>
-      )}
-      {gameStatus === 'lost' && (
-        <button
-          className='bg-primary-green text-white p-2 rounded-lg'
-          onClick={playAgain}
-        >
-          Play Again
-        </button>
-      )}
+        {gameStatus === 'won' && (
+          <button
+            className='bg-primary-green text-white p-2 rounded-lg'
+            onClick={playNext}
+          >
+            Play Next
+          </button>
+        )}
+
+        {gameStatus === 'lost' && (
+          <button
+            className='bg-primary-green text-white p-2 rounded-lg'
+            onClick={playAgain}
+          >
+            Play Again
+          </button>
+        )}
+      </div>
     </div>
   );
 };

@@ -6,6 +6,10 @@ import {
   clearErrorMessage,
   playNext,
   playAgain,
+  hideWelcomeDialog,
+  toggleDarkMode,
+  toggleGameMode,
+  resetGame,
 } from './gameSlide';
 
 const useGameSlide = () => {
@@ -17,6 +21,10 @@ const useGameSlide = () => {
     clearErrorMessage: () => dispatch(clearErrorMessage()),
     handlePlayNext: () => dispatch(playNext()),
     handlePlayAgain: () => dispatch(playAgain()),
+    handleHideWelcomeDialog: () => dispatch(hideWelcomeDialog()),
+    handleToggleDarkMode: () => dispatch(toggleDarkMode()),
+    handleToggleGameMode: () => dispatch(toggleGameMode()),
+    handleResetGame: () => dispatch(resetGame()),
   };
 };
 export default useGameSlide;

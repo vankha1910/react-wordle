@@ -1,4 +1,17 @@
 :root {
+  --text-color: #000000;
+  --bg-color: #ffffff;
+  --border-color: #cccccc;
+
+  --gray-24: #818384;
+  --gray-25: #565758;
+  --bg-keyboard: #818384;
+  --bg-cell-correct: #538d4e;
+  --bg-cell-present: #b59f3b;
+  --bg-cell-absent: #3a3a3c;
+}
+
+body.dark {
   --text-color: #f8f8f8;
   --bg-color: #121213;
   --border-color: #3a3a3c;

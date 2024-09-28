@@ -14,7 +14,6 @@ const initialState: GameState = {
   // ],
   rows: Array.from({ length: 6 }, () => [
     { char: randomWord[0], status: 'correct' },
-    // { char: '', status: 'empty' },
     { char: '', status: 'empty' },
     { char: '', status: 'empty' },
     { char: '', status: 'empty' },
@@ -31,6 +30,11 @@ const initialState: GameState = {
     win: 0,
   },
   errorMessage: '',
+  gameSettings: {
+    darkMode: true,
+    hardMode: false,
+    showWelcomeScreen: true,
+  },
 };
 
 const gameSlide = createSlice({
@@ -42,7 +46,11 @@ const gameSlide = createSlice({
       const currentRow = state.rows[state.currentRowIndex];
       const isRowFull = currentRow.every((cell) => cell.char !== '');
 
-      if (isRowFull) {
+      if (
+        isRowFull ||
+        state.gameStatus === 'won' ||
+        state.gameStatus === 'lost'
+      ) {
         return;
       }
 
@@ -59,7 +67,11 @@ const gameSlide = createSlice({
         .slice()
         .reverse()
         .findIndex((cell) => cell.char !== '');
-      if (index === -1) {
+      if (
+        index === -1 ||
+        state.gameStatus === 'won' ||
+        state.gameStatus === 'lost'
+      ) {
         return;
       }
       const actualIndex = currentRow.length - 1 - index;
@@ -136,14 +148,23 @@ const gameSlide = createSlice({
       state.secretWord = getRandomWord();
       // console.log(state.secretWord);
 
-      state.rows = Array.from({ length: 6 }, () => [
-        { char: state.secretWord[0], status: 'correct' },
-        // { char: '', status: 'empty' },
-        { char: '', status: 'empty' },
-        { char: '', status: 'empty' },
-        { char: '', status: 'empty' },
-        { char: '', status: 'empty' },
-      ]);
+      if (state.gameSettings.hardMode) {
+        state.rows = Array.from({ length: 6 }, () => [
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+        ]);
+      } else {
+        state.rows = Array.from({ length: 6 }, () => [
+          { char: state.secretWord[0], status: 'correct' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+        ]);
+      }
 
       saveData(state);
     },
@@ -152,20 +173,90 @@ const gameSlide = createSlice({
       state.rowStates = Array.from({ length: 6 }, () => 'empty');
       state.gameStatus = 'inProgress';
       state.secretWord = getRandomWord();
-      console.log(state.secretWord);
-      state.rows = Array.from({ length: 6 }, () => [
-        { char: state.secretWord[0], status: 'correct' },
-        { char: '', status: 'empty' },
-        { char: '', status: 'empty' },
-        { char: '', status: 'empty' },
-        { char: '', status: 'empty' },
-      ]);
+      if (state.gameSettings.hardMode) {
+        state.rows = Array.from({ length: 6 }, () => [
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+        ]);
+      } else {
+        state.rows = Array.from({ length: 6 }, () => [
+          { char: state.secretWord[0], status: 'correct' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+        ]);
+      }
       state.gameStats.currentStreak = 0;
 
       saveData(state);
     },
+    resetGame: (state) => {
+      state.currentRowIndex = 0;
+      state.rowStates = Array.from({ length: 6 }, () => 'empty');
+      state.gameStatus = 'inProgress';
+      state.secretWord = getRandomWord();
+      if (state.gameSettings.hardMode) {
+        state.rows = Array.from({ length: 6 }, () => [
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+        ]);
+      } else {
+        state.rows = Array.from({ length: 6 }, () => [
+          { char: state.secretWord[0], status: 'correct' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+        ]);
+      }
+      state.gameStats.currentStreak = 0;
+      state.gameStats.maxStreak = 0;
+      state.gameStats.played = 0;
+      state.gameStats.win = 0;
+      saveData(state);
+    },
     clearErrorMessage: (state) => {
       state.errorMessage = '';
+      saveData(state);
+    },
+    hideWelcomeDialog: (state) => {
+      state.gameSettings.showWelcomeScreen = false;
+      saveData(state);
+    },
+    toggleGameMode: (state) => {
+      if (state.currentRowIndex !== 0) {
+        state.errorMessage = 'Cannot change mode while game is in progress';
+        return;
+      }
+      state.gameSettings.hardMode = !state.gameSettings.hardMode;
+      if (state.gameSettings.hardMode) {
+        state.rows = Array.from({ length: 6 }, () => [
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+        ]);
+      } else {
+        state.rows = Array.from({ length: 6 }, () => [
+          { char: state.secretWord[0], status: 'correct' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+          { char: '', status: 'empty' },
+        ]);
+      }
+      saveData(state);
+    },
+    toggleDarkMode: (state) => {
+      state.gameSettings.darkMode = !state.gameSettings.darkMode;
     },
   },
 });
@@ -177,6 +268,10 @@ export const {
   clearErrorMessage,
   playNext,
   playAgain,
+  hideWelcomeDialog,
+  toggleGameMode,
+  toggleDarkMode,
+  resetGame,
 } = gameSlide.actions;
 
 export default gameSlide.reducer;

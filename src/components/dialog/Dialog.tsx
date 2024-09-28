@@ -13,7 +13,7 @@ const Dialog = ({ target }: { target: ReactNode }) => {
   }, [target]);
   return (
     <div
-      className='absolute inset-0 bg-[rgba(0,0,0,0.7)] flex items-center justify-center'
+      className='absolute inset-0 bg-[rgba(0,0,0,0.1)] dark:bg-[rgba(0,0,0,0.7)] flex items-center justify-center'
       style={{
         opacity: visible ? 1 : 0,
         transition: 'opacity 0.1s linear',
@@ -23,7 +23,7 @@ const Dialog = ({ target }: { target: ReactNode }) => {
       onClick={closeDialog}
     >
       <div
-        className='bg-[#444] p-8 h-auto relative max-w-[80%] z-2 rounded'
+        className='dark:bg-[#444] bg-white p-4 h-auto relative max-w-[90%] z-2 rounded'
         style={{
           opacity: visible ? 1 : 0,
           translate: visible ? '0 0' : '0 20px',

@@ -14,6 +14,12 @@ export type GameStats = {
   win: number;
 };
 
+export type GameSettings = {
+  darkMode: boolean;
+  hardMode: boolean;
+  showWelcomeScreen: boolean;
+};
+
 export type RowState = 'empty' | 'revealed' | 'correct';
 
 export type GameState = {
@@ -24,4 +30,5 @@ export type GameState = {
   gameStatus: GameStatus; // Trạng thái trò chơi
   gameStats: GameStats; // Thống kê trò chơi
   errorMessage: string;
+  gameSettings: GameSettings;
 };

@@ -21,8 +21,11 @@ export default {
       colors: {
         'primary-green': '#538d4e',
         'primary-orange': '#b59f3b',
+        't-color': '#f8f8f8',
+        't-dark-color': '#000000',
       },
     },
   },
+  darkMode: 'class',
   plugins: [],
 };

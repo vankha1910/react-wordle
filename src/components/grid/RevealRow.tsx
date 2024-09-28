@@ -3,15 +3,15 @@ import Cell from './Cell';
 import { useEffect, useState } from 'react';
 
 const RevealRow = ({ row }: { row: Row }) => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [activeIndex, setActiveIndex] = useState<number>(-1);
   const [counter, setCounter] = useState(1);
 
   useEffect(() => {
-    if (counter < row.length) {
+    if (counter <= row.length) {
       const timeout = setTimeout(() => {
         setActiveIndex(counter);
         setCounter(counter + 1);
-      }, 300);
+      }, 150);
       return () => clearTimeout(timeout);
     }
   }, [counter, row.length]);
@@ -20,7 +20,6 @@ const RevealRow = ({ row }: { row: Row }) => {
     <div className={`flex gap-1`}>
       {row.map((cell, index) => (
         <Cell
-          showAnimation={activeIndex === index}
           cell={cell}
           key={index}
           className={`reveal-row ${
@@ -31,7 +30,7 @@ const RevealRow = ({ row }: { row: Row }) => {
               : ''
           }`}
           style={{
-            animationDelay: `${index * 300}ms`,
+            animationDelay: `${index * 150}ms`,
           }}
         ></Cell>
       ))}
