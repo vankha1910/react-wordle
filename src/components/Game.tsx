@@ -70,7 +70,7 @@ const Game = () => {
         <Grid></Grid>
         <Keyboard></Keyboard>
       </main>
-      <footer className='text-center mt-4 text-sm'>
+      <footer className='text-center mt-auto mb-2 text-sm'>
         Created by Kha &copy; 2024
       </footer>
     </>

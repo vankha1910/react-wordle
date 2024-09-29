@@ -19,7 +19,7 @@ const OverlayProvider = ({ children }: { children: ReactNode }) => {
   };
   return (
     <OverlayContext.Provider value={value}>
-      <div className='relative w-screen h-screen'>
+      <div className='relative w-screen h-screen flex flex-col'>
         {currentDialog && <Dialog target={currentDialog} />}
         {message && (
           <aside className='absolute left-0 top-10 right-0 flex justify-center z-10 '>

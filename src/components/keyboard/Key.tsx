@@ -25,7 +25,7 @@ const Key = ({ char, obj }: { char: string; obj?: CellType | null }) => {
     <button
       className={`${
         specialKeys.includes(char) ? 'flex-[1.5]' : ''
-      } flex-1 custom-key h-12 flex items-center justify-center uppercase rounded font-bold ${
+      } text-t-color flex-1 custom-key h-12 flex items-center justify-center uppercase rounded font-bold ${
         obj?.status && statusClass[obj?.status]
       }`}
       onClick={handleClick}
