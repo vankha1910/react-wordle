@@ -1,5 +1,4 @@
-import { FaRegQuestionCircle, FaChartLine } from 'react-icons/fa';
-import { IoSettingsSharp } from 'react-icons/io5';
+import { Settings, CircleHelp, ChartArea } from 'lucide-react';
 
 import { useDialog } from './dialog/useDialog';
 import { useEffect } from 'react';
@@ -24,13 +23,13 @@ const Header = () => {
       <h1 className='text-2xl font-bold'>Wordle</h1>
       <div className='flex gap-4'>
         <button onClick={showWelcomeDialog}>
-          <FaRegQuestionCircle className='' />
+          <CircleHelp className='' />
         </button>
         <button onClick={showResultDialog}>
-          <FaChartLine className='' />
+          <ChartArea className='' />
         </button>
         <button onClick={showSettingDialog}>
-          <IoSettingsSharp className='' />
+          <Settings />
         </button>
       </div>
     </nav>

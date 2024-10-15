@@ -7,7 +7,7 @@ const OverlayProvider = ({ children }: { children: ReactNode }) => {
   const [currentDialog, setCurrentDialog] = useState<ReactNode | null>(null);
   useEffect(() => {
     if (message) {
-      const timeout = setTimeout(() => setMessage(''), 2000);
+      const timeout = setTimeout(() => setMessage(''), 1000);
       return () => clearTimeout(timeout);
     }
     return;

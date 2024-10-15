@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useOverlay } from './context';
-
+import { X } from 'lucide-react';
 const Dialog = ({ target }: { target: ReactNode }) => {
   const [visible, setVisible] = useState(false);
   const { closeDialog } = useOverlay();
@@ -35,7 +35,7 @@ const Dialog = ({ target }: { target: ReactNode }) => {
           onClick={closeDialog}
           className='bg-transparent absolute right-2 top-2 cursor-pointer text-2xl '
         >
-          ×
+          <X />
         </div>
         {target}
       </div>

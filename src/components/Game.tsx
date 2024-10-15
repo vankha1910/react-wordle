@@ -44,7 +44,7 @@ const Game = () => {
       showMessage(errorMessage);
       const timer = setTimeout(() => {
         clearErrorMessage();
-      }, 2000);
+      }, 1000);
       return () => clearTimeout(timer);
     }
   }, [errorMessage, clearErrorMessage]);

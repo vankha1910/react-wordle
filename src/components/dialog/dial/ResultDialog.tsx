@@ -2,6 +2,12 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../app/store';
 import useGameSlide from '../../../features/game/useGameSlide';
 import { useDialog } from '../useDialog';
+import { BarChart2, Award, Zap, Trophy } from 'lucide-react';
+interface StatProps {
+  label: string;
+  value: number;
+  icon: React.ReactNode;
+}
 
 const ResultDialog = () => {
   const { closeDialog } = useDialog();
@@ -53,40 +59,42 @@ const ResultDialog = () => {
         </>
       )}
       <hr className='self-stretch w-full bg-[#555] h-[1px] my-1' />
-      <h3 className='text-base font-semibold uppercase p-2'>Statistics</h3>
-      <ul className='flex gap-4 '>
-        <li className='flex flex-col text-center'>
-          Played{' '}
-          <p className='text-lg mt-1 font-bold mt-auto'>{gameStats.played}</p>
-        </li>
-        <li className='flex flex-col text-center'>
-          Win %{' '}
-          <p className='text-lg mt-1 font-bold'>
-            {Math.floor((gameStats.win / gameStats.played) * 100) || 0}
-          </p>
-        </li>
-        <li className='flex flex-col text-center'>
-          Current Streak
-          <p className='text-lg mt-1 font-bold'>{gameStats.currentStreak}</p>
-        </li>
-        <li className='flex flex-col text-center'>
-          Max Streak
-          <p className='text-lg mt-1 font-bold'>{gameStats.maxStreak}</p>
-        </li>
+      <h3 className='text-base font-semibold uppercase p-2'>Game stats</h3>
+      <ul className='flex gap-4 w-full'>
+        <Stat
+          label='Played'
+          value={gameStats.played}
+          icon={<BarChart2 />}
+        ></Stat>
+        <Stat
+          label='Win %'
+          value={Math.floor((gameStats.win / gameStats.played) * 100) || 0}
+          icon={<Award />}
+        ></Stat>
+        <Stat
+          label='Current Streak'
+          value={gameStats.currentStreak}
+          icon={<Zap />}
+        ></Stat>
+        <Stat
+          label='Max Streak'
+          value={gameStats.maxStreak}
+          icon={<Trophy />}
+        ></Stat>
       </ul>
 
       <hr className='self-stretch w-full bg-[#555] h-[1px] mt-4 mb-2' />
 
       <div className='flex gap-4'>
         <button
-          className='bg-primary-orange text-white p-2 rounded-lg'
+          className='bg-primary-orange text-white px-6 py-2 rounded-full'
           onClick={resetGame}
         >
           Reset game
         </button>
         {gameStatus === 'won' && (
           <button
-            className='bg-primary-green text-white p-2 rounded-lg'
+            className='bg-primary-green text-white px-6 py-2 rounded-full'
             onClick={playNext}
           >
             Play Next
@@ -95,7 +103,7 @@ const ResultDialog = () => {
 
         {gameStatus === 'lost' && (
           <button
-            className='bg-primary-green text-white p-2 rounded-lg'
+            className='bg-primary-green text-white  px-6 py-2 rounded-full'
             onClick={playAgain}
           >
             Play Again
@@ -105,5 +113,15 @@ const ResultDialog = () => {
     </div>
   );
 };
+
+const Stat = ({ label, value, icon }: StatProps) => (
+  <div className='flex flex-col items-center space-y-2 flex-1'>
+    <div className='p-3 bg-[#c7c7c7] dark:bg-[#767676] rounded-full'>
+      {icon}
+    </div>
+    <span className='text-2xl font-bold'>{value}</span>
+    <span className='text-sm text-muted-foreground'>{label}</span>
+  </div>
+);
 
 export default ResultDialog;
