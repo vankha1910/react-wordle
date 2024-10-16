@@ -22,13 +22,13 @@ const Header = () => {
       <span className='w-12'></span>
       <h1 className='text-2xl font-bold'>Wordle</h1>
       <div className='flex gap-4'>
-        <button onClick={showWelcomeDialog}>
+        <button onClick={showWelcomeDialog} aria-label='Help'>
           <CircleHelp className='' />
         </button>
         <button onClick={showResultDialog}>
-          <ChartArea className='' />
+          <ChartArea className='' aria-label='Stats' />
         </button>
-        <button onClick={showSettingDialog}>
+        <button onClick={showSettingDialog} aria-label='Settings'>
           <Settings />
         </button>
       </div>
